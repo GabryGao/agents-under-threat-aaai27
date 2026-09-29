@@ -1,106 +1,131 @@
-const sidebarWidths = [74, 58, 82, 66, 71, 54];
-const articleWidths = [100, 97, 94, 98, 86];
+'use client';
+
+import { ArrowDownRight, ArrowUpRight, Menu, ShieldCheck, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { cfpTopics, researchQuestions, workshop } from './workshop-data.mjs';
+
+const primaryLinks = [
+  { href: '#about', label: 'About' },
+  { href: '#cfp', label: 'Call for Papers' },
+];
 
 export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMenuOpen(false);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, []);
+
   return (
-    <main className="fixed inset-0 overflow-hidden bg-[#fbfaf8] text-zinc-900">
-      <header
-        aria-hidden="true"
-        className="grid h-[76px] grid-cols-[1fr_auto_1fr] items-center border-b border-stone-200 bg-white/95 px-6 sm:px-14"
-      >
-        <div className="flex items-center gap-3">
-          <span className="h-9 w-9 rounded-full bg-stone-100" />
-          <span className="h-3.5 w-28 rounded-full bg-stone-100" />
-        </div>
-        <span className="hidden h-9 w-[min(30vw,420px)] rounded-xl bg-stone-100 sm:block" />
-        <div className="flex items-center justify-end gap-3">
-          <span className="hidden h-9 w-9 rounded-full bg-stone-100 sm:block" />
-          <span className="h-9 w-24 rounded-xl bg-stone-100" />
-        </div>
+    <>
+      <a className="skip-link" href="#main-content">Skip to main content</a>
+
+      <header className="site-header">
+        <a className="wordmark" href="#top" aria-label="Agents Under Threat home">
+          <span className="wordmark-mark" aria-hidden="true">
+            <ShieldCheck size={18} strokeWidth={1.8} />
+          </span>
+          <span>AGENTS <b>/</b> UNDER THREAT</span>
+        </a>
+
+        <nav className="desktop-nav" aria-label="Primary navigation">
+          {primaryLinks.map((link) => <a key={link.href} href={link.href}>{link.label}</a>)}
+          <a className="nav-contact" href={`mailto:${workshop.contact}`}>
+            Contact <ArrowUpRight size={14} aria-hidden="true" />
+          </a>
+        </nav>
+
+        <button
+          className="menu-button"
+          type="button"
+          aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        </button>
+
+        <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation" data-open={menuOpen}>
+          {primaryLinks.map((link) => (
+            <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>{link.label}</a>
+          ))}
+          <a href={`mailto:${workshop.contact}`} onClick={() => setMenuOpen(false)}>Contact</a>
+        </nav>
       </header>
 
-      <div
-        aria-hidden="true"
-        className="grid h-[calc(100%-76px)] grid-cols-[180px_minmax(0,1fr)_260px] gap-10 px-6 pb-24 pt-10 opacity-55 max-lg:grid-cols-[150px_minmax(0,1fr)] max-sm:grid-cols-1 sm:px-14"
-      >
-        <aside className="hidden border-r border-stone-200 pr-7 sm:block">
-          <div className="mb-6 h-2.5 w-16 rounded-full bg-stone-200" />
-          <div className="space-y-4">
-            {sidebarWidths.map((width) => (
-              <div key={width} className="flex items-center gap-3">
-                <span className="h-4 w-4 rounded bg-stone-200" />
-                <span
-                  className="h-2.5 rounded-full bg-stone-200"
-                  style={{ width: `${width}%` }}
-                />
-              </div>
-            ))}
-          </div>
-          <div className="mb-6 mt-9 h-2.5 w-24 rounded-full bg-stone-200" />
-          <div className="space-y-4">
-            {sidebarWidths.slice(0, 3).map((width) => (
-              <span
-                key={width}
-                className="block h-2.5 rounded-full bg-stone-200"
-                style={{ width: `${width}%` }}
-              />
-            ))}
-          </div>
-        </aside>
-
-        <article className="mx-auto flex w-full max-w-3xl flex-col gap-6">
-          <div className="space-y-3">
-            <div className="h-2.5 w-28 rounded-full bg-stone-200" />
-            <div className="h-7 w-4/5 rounded-lg bg-stone-200" />
-            <div className="h-7 w-3/5 rounded-lg bg-stone-200" />
-          </div>
-          <div className="min-h-[240px] flex-1 rounded-2xl bg-stone-200" />
-          <div className="flex items-center gap-3">
-            <span className="h-9 w-9 rounded-full bg-stone-200" />
-            <span className="h-2.5 w-28 rounded-full bg-stone-200" />
-          </div>
-          <div className="space-y-2">
-            {articleWidths.map((width) => (
-              <span
-                key={width}
-                className="block h-2.5 rounded-full bg-stone-200"
-                style={{ width: `${width}%` }}
-              />
-            ))}
-          </div>
-        </article>
-
-        <aside className="space-y-5 max-lg:hidden">
-          {[0, 1].map((card) => (
-            <div
-              key={card}
-              className="space-y-4 rounded-2xl border border-stone-200 bg-white/70 p-6"
-            >
-              <span className="block h-10 w-10 rounded-full bg-stone-200" />
-              <span className="block h-3 w-3/5 rounded-full bg-stone-200" />
-              <span className="block h-2.5 w-full rounded-full bg-stone-200" />
-              <span className="block h-2.5 w-4/5 rounded-full bg-stone-200" />
-              <span className="block h-8 w-24 rounded-lg bg-stone-200" />
+      <main id="main-content">
+        <section className="hero" id="top" aria-labelledby="hero-title">
+          <img className="hero-image" src="/hero-montreal.jpg" alt="Panoramic view of Montréal and the Saint Lawrence River" />
+          <div className="hero-scrim" aria-hidden="true" />
+          <div className="attack-line attack-line-one" aria-hidden="true" />
+          <div className="attack-line attack-line-two" aria-hidden="true" />
+          <div className="hero-inner">
+            <p className="status-chip"><span aria-hidden="true" /> {workshop.status}</p>
+            <div className="hero-copy">
+              <p className="hero-kicker">SECURITY · AUTONOMY · ADVERSARIAL SYSTEMS</p>
+              <h1 id="hero-title">LLM Agents<br />Under Threat<br /><span>in Cyberspace</span></h1>
+              <p className="hero-summary">{workshop.summary}</p>
             </div>
-          ))}
-        </aside>
-      </div>
 
-      <output
-        aria-live="polite"
-        aria-atomic="true"
-        className="absolute left-1/2 top-[clamp(96px,13vh,122px)] w-[min(620px,calc(100%-40px))] -translate-x-1/2 rounded-[18px] border border-stone-200 bg-white/95 px-5 py-5 shadow-[0_18px_50px_rgb(24_24_27/9%)] backdrop-blur-sm"
-      >
-        <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.09em] text-stone-500">
-          Building your site
-        </p>
-        <h1 className="text-xl font-semibold tracking-tight">
-          Your site is taking shape
-        </h1>
-        <p className="mt-1 text-sm text-stone-500">
-          Your first version will appear here automatically when it’s ready.
-        </p>
-      </output>
-    </main>
+            <div className="hero-rail" aria-label="Workshop details">
+              <div><span>DATE · TENTATIVE</span><strong>{workshop.date}</strong></div>
+              <div><span>LOCATION</span><strong>{workshop.location}</strong></div>
+              <a href="#cfp">Explore the call <ArrowDownRight size={18} aria-hidden="true" /></a>
+            </div>
+          </div>
+          <p className="hero-credit">Photo: Arild Vågen · CC BY-SA 4.0</p>
+        </section>
+
+        <section className="section section-about" id="about" aria-labelledby="about-title">
+          <div className="section-heading">
+            <p className="section-index">01 / ABOUT</p>
+            <h2 id="about-title">Agents are no longer just models.<br /><span>They are attack surfaces.</span></h2>
+            <p>Autonomous agents observe, remember, plan, coordinate, and act through tools. Each capability opens a new boundary where adversarial intent can enter—and where a small mistake can become a real-world action.</p>
+          </div>
+
+          <div className="threat-map" aria-label="Three research questions">
+            <div className="threat-track" aria-hidden="true"><span /><span /><span /></div>
+            {researchQuestions.map((question) => (
+              <article className="question" key={question.index}>
+                <div className="question-meta"><span>{question.index}</span><small>{question.tag}</small></div>
+                <h3>{question.title}</h3>
+                <p>{question.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section section-cfp" id="cfp" aria-labelledby="cfp-title">
+          <div className="section-heading section-heading-light">
+            <p className="section-index">02 / CALL FOR PAPERS</p>
+            <h2 id="cfp-title">Research that treats the agent as a system.</h2>
+            <p>We invite technical, empirical, and position work that sharpens threat models, demonstrates realistic failures, or advances defenses for deployed agentic systems.</p>
+          </div>
+
+          <div className="topic-list">
+            {cfpTopics.map((topic) => (
+              <article className="topic-row" key={topic.number}>
+                <span>{topic.number}</span><h3>{topic.title}</h3><p>{topic.text}</p><ArrowUpRight aria-hidden="true" />
+              </article>
+            ))}
+          </div>
+
+          <aside className="cfp-note" aria-label="Submission status">
+            <span>TENTATIVE</span>
+            <p>Submission instructions will be announced after workshop confirmation. No submission portal is open at this time.</p>
+          </aside>
+        </section>
+      </main>
+
+      <footer className="preview-footer">
+        <p>{workshop.status}</p>
+        <p>Montréal photograph by Arild Vågen, licensed CC BY-SA 4.0.</p>
+      </footer>
+    </>
   );
 }
