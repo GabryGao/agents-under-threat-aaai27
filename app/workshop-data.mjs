@@ -90,10 +90,10 @@ export const speakers = [
 ];
 
 export const organizers = [
-  { name: 'Xinfeng Li', affiliation: 'The Hong Kong Polytechnic University', role: 'General Chair · Main Contact', image: '/people/li.jpg', tentative: true },
-  { name: 'Aditi Raghunathan', affiliation: 'Carnegie Mellon University', role: 'Program Chair', image: '/people/rag.jpg', tentative: true },
-  { name: 'Xinyue Shen', affiliation: 'University of Waterloo', role: 'Local Arrangements · Publications', image: '/people/shen.jpg', tentative: true },
-  { name: 'Wenbo Pan', affiliation: 'City University of Hong Kong', role: 'Publicity', image: '/people/pan.jpg', tentative: true },
+  { name: 'Xinfeng Li', affiliation: 'The Hong Kong Polytechnic University', role: 'General Chair · Main Contact', image: '/people/li.jpg', imageAvailable: false, tentative: true },
+  { name: 'Aditi Raghunathan', affiliation: 'Carnegie Mellon University', role: 'Program Chair', image: '/people/rag.jpg', imageAvailable: false, tentative: true },
+  { name: 'Xinyue Shen', affiliation: 'University of Waterloo', role: 'Local Arrangements · Publications', image: '/people/shen.jpg', imageAvailable: false, tentative: true },
+  { name: 'Wenbo Pan', affiliation: 'City University of Hong Kong', role: 'Publicity', image: '/people/pan.jpg', imageAvailable: false, tentative: true },
 ];
 
 export const advisers = [
@@ -113,4 +113,3 @@ export const submissionPolicy = {
   disclosure: 'Responsible disclosure is expected for work involving real systems or vulnerabilities.',
   destination: 'Submission instructions will be announced after workshop confirmation.',
 };
-
