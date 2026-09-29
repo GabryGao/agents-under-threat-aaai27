@@ -6,7 +6,8 @@ const page = await readFile(new URL('../app/page.tsx', import.meta.url), 'utf8')
 const layout = await readFile(new URL('../app/layout.tsx', import.meta.url), 'utf8');
 const styles = await readFile(new URL('../app/globals.css', import.meta.url), 'utf8');
 const data = await readFile(new URL('../app/workshop-data.mjs', import.meta.url), 'utf8');
-const renderedSources = `${page}\n${data}`;
+const behavior = await readFile(new URL('../app/workshop-behavior.mjs', import.meta.url), 'utf8');
+const renderedSources = `${page}\n${data}\n${behavior}`;
 
 test('document shell publishes accurate metadata and an accessible entry path', () => {
   assert.match(layout, /LLM Agents Under Threat in Cyberspace/);
@@ -40,6 +41,9 @@ test('responsive interaction styling protects keyboard and motion preferences', 
   assert.match(styles, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
   assert.match(styles, /--color-ink:/);
   assert.match(styles, /--color-cyan:/);
+  assert.match(page, /hidden={!menuOpen}/);
+  assert.match(page, /menuButtonRef\.current\?\.focus\(\)/);
+  assert.match(styles, /\.mobile-nav\[hidden\]\s*{\s*display:\s*none\s*!important/);
 });
 
 test('complete page exposes every public section and proposal-derived person', () => {
@@ -72,4 +76,16 @@ test('complete page renders every tentative date and schedule record', () => {
   assert.match(page, /speakers\.map/);
   assert.match(page, /organizers\.map/);
   assert.match(page, /advisers\.map/);
+});
+
+test('intermediate widths stack dense rows before they can overflow', () => {
+  const tabletRules = styles.match(/@media \(max-width: 900px\) \{([\s\S]*?)\n\}/)?.[1] ?? '';
+  assert.match(tabletRules, /\.topic-row\s*{[^}]*grid-template-columns:\s*34px 1fr 20px/);
+  assert.match(tabletRules, /\.schedule-list li\s*{[^}]*grid-template-columns:\s*38px 1fr auto/);
+});
+
+test('server-rendered content is visible before reveal JavaScript initializes', () => {
+  assert.match(styles, /\[data-reveal\]\s*{\s*opacity:\s*1;\s*transform:\s*none/);
+  assert.match(styles, /\[data-reveal\]\.reveal-pending\s*{[^}]*opacity:\s*0/);
+  assert.match(renderedSources, /classList\.add\('reveal-pending'\)/);
 });

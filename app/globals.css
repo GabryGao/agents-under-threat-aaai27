@@ -56,6 +56,7 @@ section[id] { scroll-margin-top: calc(var(--nav-height) + 20px); }
 .desktop-nav > a[data-active='true']::after { transform: scaleX(1); transform-origin: left; }
 .nav-contact { display: inline-flex; align-items: center; gap: .5rem; padding: .72rem .9rem; background: var(--color-ink); color: var(--color-white); }
 .menu-button, .mobile-nav { display: none; }
+.mobile-nav[hidden] { display: none !important; }
 
 .hero { position: relative; min-height: min(790px, calc(100svh - var(--nav-height))); overflow: hidden; background: var(--color-ink); color: var(--color-white); }
 .hero-image, .hero-scrim { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -199,8 +200,9 @@ section[id] { scroll-margin-top: calc(var(--nav-height) + 20px); }
 .site-footer small { color: var(--color-amber); }
 .site-footer a { text-decoration: underline; text-underline-offset: 3px; }
 
-[data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 500ms ease, transform 500ms ease; }
-[data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+[data-reveal] { opacity: 1; transform: none; }
+[data-reveal].reveal-pending { opacity: 0; transform: translateY(18px); transition: opacity 500ms ease, transform 500ms ease; }
+[data-reveal].reveal-pending.is-visible { opacity: 1; transform: translateY(0); }
 
 @media (max-width: 900px) {
   .desktop-nav { display: none; }
@@ -220,10 +222,18 @@ section[id] { scroll-margin-top: calc(var(--nav-height) + 20px); }
   .question:first-of-type { border-left: 0; }
   .question h3 { margin-top: 3.5rem; }
   .threat-track { display: none; }
+  .topic-row { grid-template-columns: 34px 1fr 20px; gap: 1rem; }
+  .topic-row p { grid-column: 2 / -1; }
+  .topic-row svg { grid-column: 3; grid-row: 1; }
   .submission-grid { grid-template-columns: 1fr; gap: 2rem; }
   .date-grid { grid-template-columns: repeat(2, 1fr); }
   .date-item:nth-child(3) { border-left: 1px solid var(--color-line); }
   .schedule-heading, .people-heading { grid-template-columns: 1fr; }
+  .schedule-list li { grid-template-columns: 38px 1fr auto; gap: .5rem .8rem; padding: 1rem 0; }
+  .schedule-list time { grid-column: 2; }
+  .schedule-list h3 { grid-column: 2 / -1; }
+  .schedule-type { grid-column: 2; }
+  .schedule-list em { grid-column: 3; grid-row: 1; }
   .speaker-grid, .organizer-grid { grid-template-columns: repeat(2, 1fr); }
   .speaker-card:nth-child(3), .organizer-card:nth-child(3) { border-left: 1px solid rgba(255, 255, 255, .16); }
   .organizer-card:nth-child(3) { border-left-color: var(--color-line); }
@@ -244,19 +254,11 @@ section[id] { scroll-margin-top: calc(var(--nav-height) + 20px); }
   .hero-rail { grid-template-columns: 1fr; }
   .hero-rail > a { grid-column: auto; }
   .hero-rail > div:nth-child(2) { padding-left: 0; border-left: 0; }
-  .topic-row { grid-template-columns: 34px 1fr 20px; gap: 1rem; }
-  .topic-row p { grid-column: 2 / -1; }
-  .topic-row svg { grid-column: 3; grid-row: 1; }
   .cfp-note { grid-template-columns: 1fr; gap: .75rem; }
   .submission-grid dl > div { grid-template-columns: 1fr; gap: .4rem; }
   .date-grid { grid-template-columns: 1fr; }
   .date-item, .date-item:first-child, .date-item:nth-child(3) { border-left: 1px solid var(--color-line); }
   .schedule-heading { gap: 2rem; }
-  .schedule-list li { grid-template-columns: 38px 1fr auto; gap: .5rem .8rem; padding: 1rem 0; }
-  .schedule-list time { grid-column: 2; }
-  .schedule-list h3 { grid-column: 2 / -1; }
-  .schedule-type { grid-column: 2; }
-  .schedule-list em { grid-column: 3; grid-row: 1; }
   .speaker-grid, .organizer-grid { grid-template-columns: 1fr; }
   .speaker-card, .speaker-card:first-child, .speaker-card:nth-child(3), .organizer-card, .organizer-card:first-child, .organizer-card:nth-child(3) { border-left: 1px solid var(--color-line); }
   .speaker-card, .speaker-card:first-child, .speaker-card:nth-child(3) { border-left-color: rgba(255, 255, 255, .16); }
@@ -270,5 +272,5 @@ section[id] { scroll-margin-top: calc(var(--nav-height) + 20px); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
-  [data-reveal] { opacity: 1; transform: none; }
+  [data-reveal], [data-reveal].reveal-pending { opacity: 1; transform: none; }
 }

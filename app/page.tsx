@@ -12,7 +12,7 @@ import {
   X,
 } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { initRevealEffects, nextMenuState } from './workshop-behavior.mjs';
 import {
   advisers,
@@ -44,10 +44,14 @@ const initials = (name: string) =>
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('about');
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMenuOpen(nextMenuState(menuOpen, 'close'));
+      if (event.key === 'Escape' && menuOpen) {
+        setMenuOpen(nextMenuState(menuOpen, 'close'));
+        requestAnimationFrame(() => menuButtonRef.current?.focus());
+      }
     };
     window.addEventListener('keydown', closeOnEscape);
     return () => window.removeEventListener('keydown', closeOnEscape);
@@ -90,6 +94,7 @@ export default function Home() {
         </nav>
 
         <button
+          ref={menuButtonRef}
           className="menu-button"
           type="button"
           aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
@@ -100,7 +105,7 @@ export default function Home() {
           {menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
         </button>
 
-        <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation" data-open={menuOpen}>
+        <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation" data-open={menuOpen} hidden={!menuOpen}>
           {primaryLinks.map((link) => <a key={link.href} href={link.href} onClick={closeMenu}>{link.label}</a>)}
           <a href={`mailto:${workshop.contact}`} onClick={closeMenu}>Contact</a>
         </nav>

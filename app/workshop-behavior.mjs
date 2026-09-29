@@ -19,6 +19,8 @@ export function initRevealEffects() {
     return;
   }
 
+  targets.forEach((target) => target.classList.add('reveal-pending'));
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
