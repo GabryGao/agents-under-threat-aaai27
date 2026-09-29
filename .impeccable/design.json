@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-30T00:00:00+09:00",
+  "title": "Design System: Agents Under Threat",
+  "extensions": {
+    "colorMeta": {
+      "midnight-ink": { "role": "neutral", "displayName": "Midnight Ink", "canonical": "#06111b", "tonalRamp": ["oklch(15% 0.025 245)", "oklch(25% 0.025 245)", "oklch(35% 0.025 245)", "oklch(48% 0.025 245)", "oklch(62% 0.02 245)", "oklch(74% 0.015 245)", "oklch(86% 0.01 245)", "oklch(95% 0.005 245)"] },
+      "oxidized-cyan": { "role": "primary", "displayName": "Oxidized Cyan", "canonical": "#4fe0d0", "tonalRamp": ["oklch(15% 0.06 183)", "oklch(25% 0.08 183)", "oklch(36% 0.1 183)", "oklch(48% 0.12 183)", "oklch(60% 0.13 183)", "oklch(72% 0.12 183)", "oklch(84% 0.08 183)", "oklch(95% 0.03 183)"] },
+      "alert-amber": { "role": "secondary", "displayName": "Alert Amber", "canonical": "#ffbd59", "tonalRamp": ["oklch(15% 0.07 75)", "oklch(25% 0.1 75)", "oklch(36% 0.13 75)", "oklch(48% 0.15 75)", "oklch(60% 0.16 75)", "oklch(72% 0.15 75)", "oklch(84% 0.1 75)", "oklch(95% 0.035 75)"] },
+      "chalk-paper": { "role": "neutral", "displayName": "Chalk Paper", "canonical": "#f3f2ed", "tonalRamp": ["oklch(15% 0.01 90)", "oklch(25% 0.01 90)", "oklch(36% 0.01 90)", "oklch(48% 0.01 90)", "oklch(60% 0.01 90)", "oklch(72% 0.008 90)", "oklch(84% 0.006 90)", "oklch(95% 0.004 90)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Field Headline", "purpose": "Hero title only." },
+      "headline": { "displayName": "Section Argument", "purpose": "Major section theses." },
+      "body": { "displayName": "Research Body", "purpose": "Explanations and policy." },
+      "label": { "displayName": "Instrument Label", "purpose": "States, indices, dates, and roles." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "nav-state", "value": "180ms ease", "purpose": "Navigation underline state change." },
+      { "name": "reveal", "value": "500ms ease", "purpose": "18px restrained content entrance; removed for reduced motion." }
+    ],
+    "breakpoints": [
+      { "name": "stack", "value": "900px" },
+      { "name": "mobile", "value": "680px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Navigation Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Dark compact action for contact or decisive navigation.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">CONTACT <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 17 17 7M7 7h10v10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg></a>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:var(--color-ink,#06111b);color:var(--color-white,#fbfcfa);padding:.72rem .9rem;font:650 .72rem/1 Geist Mono,monospace;letter-spacing:.05em;text-decoration:none}.ds-btn-primary svg{width:14px;height:14px}.ds-btn-primary:hover{color:var(--color-cyan,#4fe0d0)}.ds-btn-primary:focus-visible{outline:3px solid var(--color-amber,#ffbd59);outline-offset:4px}"
+    },
+    {
+      "name": "Accent Field Action",
+      "kind": "button",
+      "refersTo": "button-accent",
+      "description": "Cyan call-to-action used against the midnight field.",
+      "html": "<a class=\"ds-btn-accent\" href=\"#\">EXPLORE THE CALL <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m7 7 10 10m0-10v10H7\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg></a>",
+      "css": ".ds-btn-accent{display:flex;align-items:center;justify-content:space-between;background:var(--color-cyan,#4fe0d0);color:var(--color-ink,#06111b);padding:1.05rem .9rem;font:700 .7rem/1 Geist Mono,monospace;letter-spacing:.09em;text-decoration:none}.ds-btn-accent svg{width:18px;height:18px}.ds-btn-accent:hover{background:#75eadf}.ds-btn-accent:focus-visible{outline:3px solid var(--color-amber,#ffbd59);outline-offset:4px}"
+    },
+    {
+      "name": "Tentative Status",
+      "kind": "chip",
+      "refersTo": "status-chip",
+      "description": "Explicit proposal-state marker used on the hero.",
+      "html": "<span class=\"ds-status\"><i></i> PROPOSED WORKSHOP AT AAAI-27</span>",
+      "css": ".ds-status{display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,.38);background:#06111b;color:#fbfcfa;padding:.55rem .75rem;font:650 .72rem/1 Geist Mono,monospace;letter-spacing:.065em}.ds-status i{width:7px;height:7px;margin-right:.45rem;background:#ffbd59;border-radius:50%}"
+    },
+    {
+      "name": "Threat Question",
+      "kind": "card",
+      "description": "Rule-bound research question with a circular waypoint.",
+      "html": "<article class=\"ds-threat\"><div><span>01</span><small>INPUT CHANNELS</small></div><h3>What enters the agent?</h3><p>Trace the adversarial boundary before the agent acts.</p></article>",
+      "css": ".ds-threat{min-height:300px;padding:2.25rem;background:#f3f2ed;color:#06111b;border:1px solid rgba(6,17,27,.16)}.ds-threat>div{display:flex;align-items:center;justify-content:space-between;font-family:Geist Mono,monospace}.ds-threat>div span{display:grid;width:39px;height:39px;place-items:center;border:1px solid rgba(6,17,27,.16);border-radius:50%;font-size:.72rem}.ds-threat small{font-size:.68rem;letter-spacing:.08em}.ds-threat h3{max-width:10ch;margin:5rem 0 1rem;font:580 2.2rem/1.05 Geist,sans-serif;letter-spacing:-.035em}.ds-threat p{color:#4d5b62}"
+    },
+    {
+      "name": "Schedule Row",
+      "kind": "custom",
+      "description": "Dense, line-based program record that stacks cleanly on mobile.",
+      "html": "<div class=\"ds-schedule\"><small>01</small><time>08:30–08:45</time><strong>Opening remarks</strong><span>WELCOME</span><em>TENTATIVE</em></div>",
+      "css": ".ds-schedule{display:grid;grid-template-columns:40px 130px 1fr 100px 80px;gap:1rem;align-items:center;padding:1.2rem 0;border-top:1px solid rgba(6,17,27,.2);background:#dce5e2;color:#06111b}.ds-schedule small,.ds-schedule time,.ds-schedule span,.ds-schedule em{font:500 .7rem/1.2 Geist Mono,monospace}.ds-schedule strong{font:560 1.1rem/1.2 Geist,sans-serif}.ds-schedule em{color:#7c5516;font-style:normal}@media(max-width:520px){.ds-schedule{grid-template-columns:32px 1fr auto}.ds-schedule time{grid-column:2}.ds-schedule strong{grid-column:2/-1}.ds-schedule span{grid-column:2}.ds-schedule em{grid-column:3;grid-row:1}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Adversarial Field Manual",
+    "overview": "The system treats an academic workshop page as a live security map: precise, high-contrast, and sober enough for research, with just enough signal color to make attack paths and provisional status impossible to miss. Photography is environmental evidence, not decoration; the cyan path and node language connects inputs, tools, coordination, and defense.",
+    "keyCharacteristics": [
+      "Midnight and chalk surfaces with oxidized cyan as the active signal.",
+      "Editorial-scale headlines paired with terse mono operational labels.",
+      "Fine rules, open grids, and very limited rounding.",
+      "Explicit amber markers for tentative or cautionary states.",
+      "Responsive structures that collapse from four columns to two and then one."
+    ],
+    "rules": [
+      { "name": "The Signal Economy Rule", "body": "Cyan identifies system structure or the next action; amber is reserved for tentative status, caution, and focus. Neither is decorative fill.", "section": "colors" },
+      { "name": "The Two-Register Rule", "body": "Human arguments use the sans display register; system metadata uses mono. Do not introduce a third expressive typeface.", "section": "typography" },
+      { "name": "The Flat Evidence Rule", "body": "Information sits in the same field and earns hierarchy through scale, tone, and rules—not ornamental shadows.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do mark every unconfirmed event detail as tentative in both language and visual state.",
+      "Do use fine rules and aligned metadata to structure dense academic information.",
+      "Do preserve 16px minimum body text, visible focus, and reduced-motion behavior.",
+      "Do keep cyan and amber rare enough to retain semantic force."
+    ],
+    "donts": [
+      "Don't imply official AAAI-27 acceptance or add a submission destination before one exists.",
+      "Don't turn every content group into a rounded floating card.",
+      "Don't add gradients, decorative glows, or ambient shadows to simulate polish.",
+      "Don't use attack-path lines where no actual dependency or threat relationship exists."
+    ]
+  }
+}
