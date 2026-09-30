@@ -170,14 +170,17 @@ export default function Home() {
             <p className="section-note">All times are local. Timing and session assignments may change after workshop confirmation.</p>
             <div className="schedule-table-wrapper">
               <table className="schedule-table">
+                <thead className="sr-only">
+                  <tr><th scope="col">Time</th><th scope="col">Activity</th></tr>
+                </thead>
                 <tbody>
-                  <tr className="session-heading"><th colSpan={2}>Morning Session</th></tr>
+                  <tr className="session-heading"><th scope="rowgroup" colSpan={2}>Morning Session</th></tr>
                   {scheduleRows.filter((item) => item.session === 'morning').map((item) => (
-                    <tr key={item.time}><td><time dateTime={item.time}>{item.time}</time></td><td>{item.title} <small>({item.type} · tentative)</small></td></tr>
+                    <tr key={item.time}><th scope="row"><time>{item.time}</time></th><td>{item.title} <small>({item.type} · tentative)</small></td></tr>
                   ))}
-                  <tr className="session-heading"><th colSpan={2}>Afternoon Session</th></tr>
+                  <tr className="session-heading"><th scope="rowgroup" colSpan={2}>Afternoon Session</th></tr>
                   {scheduleRows.filter((item) => item.session === 'afternoon').map((item) => (
-                    <tr key={item.time}><td><time dateTime={item.time}>{item.time}</time></td><td>{item.title} <small>({item.type} · tentative)</small></td></tr>
+                    <tr key={item.time}><th scope="row"><time>{item.time}</time></th><td>{item.title} <small>({item.type} · tentative)</small></td></tr>
                   ))}
                 </tbody>
               </table>

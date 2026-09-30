@@ -85,10 +85,14 @@ test('complete page renders every tentative date and schedule record', () => {
 
 test('schedule uses a simple semantic table with morning and afternoon groups', () => {
   assert.match(page, /<table[^>]*className="schedule-table"/);
+  assert.match(page, /<thead className="sr-only">/);
+  assert.match(page, /<th scope="col">Time<\/th>/);
+  assert.match(page, /<th scope="col">Activity<\/th>/);
+  assert.match(page, /<th scope="row"><time>/);
   assert.match(page, /<tbody>/);
   assert.match(page, /Morning Session/);
   assert.match(page, /Afternoon Session/);
-  assert.match(page, /<time dateTime=/);
+  assert.doesNotMatch(page, /<time dateTime=/);
 });
 
 test('people use portrait-shaped cells with accessible initials fallbacks', () => {
@@ -113,4 +117,10 @@ test('mobile rules protect tables, email, and people from horizontal overflow', 
   assert.match(styles, /\.schedule-table-wrapper\s*{[^}]*overflow-x:\s*auto/);
   assert.match(styles, /@media\s*\(max-width:\s*640px\)/);
   assert.match(styles, /\.people-grid\s*{[^}]*grid-template-columns:/);
+});
+
+test('academic lists and small metadata remain visibly accessible', () => {
+  assert.match(styles, /\.news-list,\s*\.topic-list-simple,\s*\.guideline-list\s*{[^}]*list-style:\s*disc/);
+  assert.match(styles, /\.person-card small\s*{[^}]*color:\s*#666/);
+  assert.match(styles, /\.site-footer\s*{[^}]*color:\s*#666/);
 });
