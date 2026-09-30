@@ -100,6 +100,10 @@ test('people use portrait-shaped cells with accessible initials fallbacks', () =
 
 test('visual source rejects the discarded security campaign system', () => {
   assert.match(page, /className="reading-column"/);
+  assert.match(styles, /\.site-header\s*{[^}]*background:\s*#fff/);
+  assert.match(styles, /\.hero\s*{[^}]*height:\s*clamp\(520px,/);
+  assert.match(styles, /\.reading-column\s*{[^}]*max-width:\s*880px/);
+  assert.match(styles, /\.person-portrait\s*{[^}]*border-radius:\s*50%/);
   assert.doesNotMatch(renderedSources, /threat-map|topic-row|schedule-list|section-index/);
   assert.doesNotMatch(styles, /--color-cyan|#4fe0d0|reveal-pending/);
 });

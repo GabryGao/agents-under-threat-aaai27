@@ -80,6 +80,9 @@ export default function Home() {
       <header className="site-header">
         <a className="site-name" href="#top">Agents Under Threat Workshop</a>
         <nav className="desktop-nav" aria-label="Primary navigation">
+          {primaryLinks.map((link) => <a key={link.href} href={link.href}>{link.label}</a>)}
+        </nav>
+        <div className="mobile-controls">
           <a href="#about">About</a>
           <button
             ref={menuButtonRef}
@@ -92,7 +95,7 @@ export default function Home() {
           >
             {menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
           </button>
-        </nav>
+        </div>
         <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation" hidden={!menuOpen}>
           {primaryLinks.map((link) => (
             <a key={link.href} href={link.href} onClick={closeMenu}>{link.label}</a>
