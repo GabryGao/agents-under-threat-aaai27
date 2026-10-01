@@ -19,9 +19,13 @@ const projectRoot = resolve(import.meta.dirname, '..');
 const initials = (name) =>
   name.split(' ').filter(Boolean).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
 
+const portraitMarkup = (person) => person.imageAvailable && person.image
+  ? `<img src=".${escapeHtml(person.image)}" alt="Portrait of ${escapeHtml(person.name)}">`
+  : `<span aria-label="Portrait placeholder for ${escapeHtml(person.name)}">${escapeHtml(initials(person.name))}</span>`;
+
 const peopleMarkup = (records) => records.map((person) => `
   <article class="person-card">
-    <div class="person-portrait"><span aria-label="Portrait placeholder for ${escapeHtml(person.name)}">${escapeHtml(initials(person.name))}</span></div>
+    <div class="person-portrait">${portraitMarkup(person)}</div>
     <h3>${escapeHtml(person.name)}</h3>
     <p>${escapeHtml(person.affiliation)}</p>
     <small>${escapeHtml(person.role)} · Tentative</small>
@@ -195,11 +199,13 @@ document.addEventListener('keydown', (event) => {
 `;
 
 await mkdir(outputDirectory, { recursive: true });
+await mkdir(resolve(outputDirectory, 'people'), { recursive: true });
 await Promise.all([
   writeFile(resolve(outputDirectory, 'index.html'), html),
   writeFile(resolve(outputDirectory, 'styles.css'), standaloneStyles),
   writeFile(resolve(outputDirectory, 'menu.js'), menuScript),
   copyFile(resolve(projectRoot, 'public/hero-montreal.jpg'), resolve(outputDirectory, 'hero-montreal.jpg')),
+  copyFile(resolve(projectRoot, 'public/people/xinfeng-li.png'), resolve(outputDirectory, 'people/xinfeng-li.png')),
   copyFile(resolve(projectRoot, 'public/favicon.svg'), resolve(outputDirectory, 'favicon.svg')),
   writeFile(resolve(outputDirectory, '.nojekyll'), ''),
 ]);

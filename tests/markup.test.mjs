@@ -67,7 +67,7 @@ test('complete page exposes every public section and proposal-derived person', (
 });
 
 test('complete page preserves safe public-contact and asset boundaries', () => {
-  for (const asset of ['/people/li.jpg', '/people/rag.jpg', '/people/shen.jpg', '/people/pan.jpg']) {
+  for (const asset of ['/people/xinfeng-li.png', '/people/rag.jpg', '/people/shen.jpg', '/people/pan.jpg']) {
     assert.match(renderedSources, new RegExp(asset.replace('.', '\\.')));
   }
   assert.equal((data.match(/xinfeng\.li@polyu\.edu\.hk/g) ?? []).length, 1);

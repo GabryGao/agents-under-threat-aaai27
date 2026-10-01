@@ -36,6 +36,8 @@ test('GitHub Pages generator emits a complete standalone workshop site', async (
   assert.match(html, /<table class="schedule-table">/);
   assert.match(html, /Niloofar Mireshghallah/);
   assert.match(html, /src="\.\/hero-montreal\.jpg"/);
+  assert.match(html, /src="\.\/people\/xinfeng-li\.png" alt="Portrait of Xinfeng Li"/);
+  assert.match(html, /Portrait placeholder for Aditi Raghunathan/);
   assert.match(html, /href="\.\/favicon\.svg"/);
   assert.doesNotMatch(html, /\/_next\/|chatgpt\.site/);
 
@@ -44,5 +46,6 @@ test('GitHub Pages generator emits a complete standalone workshop site', async (
   assert.match(menuScript, /aria-expanded/);
 
   assert.ok((await stat(join(outputDirectory, 'hero-montreal.jpg'))).size > 100_000);
+  assert.ok((await stat(join(outputDirectory, 'people', 'xinfeng-li.png'))).size > 10_000);
   assert.ok((await stat(join(outputDirectory, 'favicon.svg'))).size > 0);
 });
